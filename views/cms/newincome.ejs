@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    function publish(){
+      document.forms[0].submit();
+    }
+</script>
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <h3 class="panel-title">收入统计</h3>
+   </div>
+   <div class="panel-body">
+      <form method="post" action="/newincomedo">
+        <table class="table table-bordered">
+                <tr>
+                    <td class="td-left">日期</td>
+                    <td>
+                      <input type="text" name="datetime" id="datetime" style="cursor:pointer" readonly  class="Wdate" onfocus="WdatePicker({doubleCalendar:false,dateFmt:'yyyy-MM-dd'})" value = "<%=date1%>"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-left">分类</td>
+                    <td>
+                      <select name="category_id" >
+                            <option value="-">请选择</option>
+                            <%for(var i in p_c){%>
+                                <option value="<%=p_c[i].id%>"><%=p_c[i].name%></option>  
+                            <%}%>
+                      </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-left">金额</td>
+                    <td>
+                      <input type="text" name="price" class="input-s" style="width:50px"></input>
+                    </td>
+                </tr>
+        </table>
+        <button type="button" class="btn btn-primary btn-xs" onclick="publish()">增加</button>
+        <button type="button" class="btn btn-default btn-xs" onclick="window.location='/_incomelist';">关闭</button>
+      </form>
+   </div>
+</div>

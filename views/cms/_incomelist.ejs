@@ -1,0 +1,127 @@
+<div class="panel panel-default">
+   <div class="panel-heading">
+      <h3 class="panel-title">收入数据列表</h3>
+   </div>
+   <div class="panel-body">
+    <button type="button" class="btn btn-primary btn-xs" style="margin-bottom:5px" onclick="window.location='/newincome';">新建</button>
+    <div>
+      <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <div>分类收入 <%=pricetotal_s%></div>
+                <select name="category_id" id="category_id">
+                  <option value="">请选择</option>
+                  <%for(var i in p_c){%>
+                    <option value="<%=p_c[i].id%>"><%=p_c[i].name%></option>  
+                  <%}%>
+                </select>
+                <button type="button" class="btn btn-primary btn-xs" style="margin-bottom:5px" onclick="search();">搜索</button>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <div>按月收入 <%=pricetotal_m%></div>
+                <input type="text" id="key2" style="cursor:pointer" readonly  class="Wdate" onfocus="WdatePicker({doubleCalendar:false,dateFmt:'yyyy-MM'})" value = "<%=date1%>"></input>
+                <button type="button" class="btn btn-primary btn-xs" style="margin-bottom:5px" onclick="search_m();">搜索</button>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <div>本年收入</div><%=pricetotal_y%>
+              </div>
+            </div>            
+        </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+              <div class="panel-body">
+                <div>总收入</div><%=pricetotal%>
+              </div>
+            </div>           
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>分类</th>
+        <th>金额</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%for(var i in posts){%>
+      <tr>
+        <td><%-posts[i].datetime%></td>
+        <td><%=posts[i].category%></td>
+        <td><%=posts[i].price%></td>
+      </tr>
+    <%}%>
+    </tbody>
+    </table>
+  </div>
+</div>
+<!--分页符-->
+<div class='div-info'>
+    当前第<%=page%>页/共<%=totalpage%>页&nbsp;<%=total%>条数据
+  </div>
+  <!--分页符-->
+  <div class='div-pager'>
+    <ul class="pagination">
+      <li <%=isFirstPage?"class=disabled":""%>><a <%=isFirstPage?"":"onclick=toPage("+(page-1)+");"%> >&laquo;</a></li>
+    <%
+      var minpage = 0;
+      var maxpage = 10;
+      if((totalpage+1)>10){
+        minpage = page - 5;
+        maxpage = page + 5;
+      }
+      if(page - 5 < 1){
+        maxpage = maxpage - page + 5;
+      }
+      if(page + 5 > (totalpage+1)){
+        minpage = minpage - (page + 5) + (totalpage +1);
+      }
+      for(var i=1;i<(totalpage+1);i++){
+        var active = "";
+        if(i==page){active = "class=active";}
+          if(i>minpage && i<maxpage){
+    %>
+      <li <%=active%>><a href="#" onclick="toPage(<%=i%>);"><%=i%></a></li>
+    <%}}%>
+      <li <%=isLastPage?"class=disabled":""%>><a <%=isLastPage?"":"onclick=toPage("+(page+1)+");"%> >&raquo;</a></li>
+    </ul>
+</div>
+
+<script>
+  $("#category_id").val(<%=f1%>);
+
+  function toPage(i){
+    var url = window.location.href;
+    if(url.indexOf("?p=") != -1){
+      var parm1 = url.split("?p=");
+      if(parm1[1].indexOf("&") != -1){
+        var parm2 = parm1[1].split("&");
+        window.location = parm1[0] + "?p=" + i + "&" +parm2[1];
+      }else{
+        window.location = parm1[0] + "?p=" + i;
+      }
+    }else{
+      window.location = url + "?p="+i;
+    } 
+  }
+
+  function search(){
+    var p1 = $("#category_id").val();
+    window.location = "/_incomelist?p=1&p1="+p1;    
+  }
+
+  function search_m(){
+    var p2 = $("#key2").val();
+    window.location = "/_incomelist?p=1&p2="+p2; 
+  }
+</script>

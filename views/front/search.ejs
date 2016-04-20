@@ -1,0 +1,19 @@
+<div class="search_panel">
+	<div class="wrap">
+		<input type="text" oninput="searchKey();" id="key" placeholder="输入您要搜索的关键字" />
+		<button class="search_button">搜索</button>
+	</div>
+	<div id="search_result"></div>
+</div>
+<div style="text-align:center;clear:both">
+
+	<div class="center">
+		<div class="button-key">
+			<%for(var i in rows6){%>
+				<button type="button" class="btn btn-primary btn-xs" onclick="window.location='/list?c=<%=rows6[i].id%>';">
+					<%=rows6[i].name%>
+				</button>
+				<%}%>
+		</div>
+	</div>
+</div>

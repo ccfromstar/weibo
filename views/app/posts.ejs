@@ -1,0 +1,30 @@
+<div class="am-g am-g-fixed blog-g-fixed">
+	<div class="am-u-md-12">
+		<article class="blog-main">
+			<h3 class="am-article-title blog-title">
+        	【<%=posts[0].name%>】<%=posts[0].title%>
+      </h3>
+			<h4 class="am-article-meta blog-meta">by <a href="">陈叔叔</a> posted on <%=posts[0].created_at%></h4>
+			<div class="am-g">
+				<div class="am-u-sm-12">
+					<%-posts[0].post%>
+				</div>
+			</div>
+		</article>
+	</div>
+</div>
+<script>
+	$(".btn_return").show();
+	//修复代码高亮的样式问题
+	$(function() {
+			var total_width = $(".ke-zeroborder").parent("div").width();
+			var left_width = $(".ke-zeroborder td:first-child").width();
+			left_width = 28; //左侧代码行超过10行和小于10行的宽度不一样，统一成最大的28px
+			var margin_width = 16; //左右margin7px加上分割线2px
+			var right_width = total_width - left_width - margin_width;
+			$(".ke-zeroborder td:last-child").find("div").css("overflow","hidden").css("width",right_width+"px");
+			//修复图片，表格太宽的问题
+			$(".blog-main").find("img").css("max-width","100%");
+			$(".blog-main").find("table").css("width","100%");
+	})
+</script>
