@@ -86,7 +86,6 @@ function setLog(page, req) {
 
 /**通用函数END**/
 
-
 /**前端BEGIN**/
 exports.home = function(req, res) {
 	var LIMIT = 6;
@@ -263,7 +262,6 @@ exports.searchdo = function(req, res) {
 		});
 	}
 	/**前端END**/
-
 
 /**移动端BEGIN**/
 exports.test = function(req, res) {
@@ -468,7 +466,6 @@ exports.mobileabout = function(req, res) {
 	});
 };
 /**移动端END**/
-
 
 /**后台BEGIN**/
 exports.publish = function(req, res) {
@@ -922,7 +919,24 @@ exports.spider = function(req, res) {
 		if (err) return console.error(err);
 		res.render('spider', {
 			layout: false,
-			data:data.body.toString()
+			data: data.body.toString()
 		});
+	});
+}
+
+/*http请求*/
+exports.postdo = function(req, res) {
+	var url = req.param("url");
+	request({
+		url: url,
+		method: 'POST',
+		form: {
+			username: req.param("username"),
+			password: req.param("password")
+		}
+	}, function(err, response, body) {
+		if (!err && response.statusCode == 200) {
+			res.send(body);
+		}
 	});
 }

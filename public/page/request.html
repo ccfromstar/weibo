@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>http 请求</title>
+		<script type="text/javascript" src="../javascripts/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<input type="text" name="posturl" id="posturl" value="" style="width:90%;" placeholder="请输入http请求的地址" />
+		<input type="button" name="sendpost" id="sendpost" value="发送POST请求" />
+		<p>参数:</p>
+		username<input type="text" name="username" id="username" value="" style="width:90%;" />
+		password<input type="text" name="password" id="password" value="" style="width:90%;" />
+		<p>返回的结果:</p>
+		<div id="result"></div>
+		<script>
+			$('#sendpost').bind('click', function() {
+				$.ajax({
+					type: "POST",
+					url: "/sendPOST",
+					data: {
+						url: $('#posturl').val(),
+						username: $('#username').val(),
+						password: $('#password').val()
+					},
+					success: function(data) {
+						$('#result').html(data);
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

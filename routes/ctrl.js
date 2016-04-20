@@ -46,4 +46,7 @@ module.exports = function (app, routes) {
     
     //网络爬虫
     app.get('/spider',routes.spider);
+    
+    //http请求
+    app.post('/sendPOST',routes.postdo);
 };
